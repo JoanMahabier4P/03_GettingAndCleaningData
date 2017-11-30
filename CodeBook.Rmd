@@ -1,0 +1,111 @@
+---
+title: "CodeBook"
+output: html_document
+---
+
+## Project Goal
+
+The purpose of this project is to summarize a subset of sensor data by subject and physical activity.
+
+
+## Sensor Data Information
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. 
+
+## Collecting data
+
+The data for the project can be obtained by clicking [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
+
+Read the tables from the following files:
+
+* features.txt file: shows all sorts of calculationtypes (incl the mean and standard deviation)
+
+* activity_labels.txt: shows the used activity types (walking, standing, etc.)
+
+* subject_train.txt and subject_test.txt: train and test data
+
+* y_train.txt and y_test.txt: Training labels and Test labels (activity data); the numbers are explained in activity_labels.txt)
+
+* X_train.txt and X_test.txt: Training and Test dataset
+
+* For the purposes of this project, the files in the Inertial Signals folders are not used.
+
+
+### Used variables for collected data in files above
+
+#### Data about types of activities and calculations:
+
+* tFeatures: from features.txt
+
+* tActivityLabels: from activity_labels.txt
+
+#### Training Data:
+
+* subjTrain: training data from subject_train.txt
+
+* actTrain: activity data from y_train.txt
+
+* dataTrain: actual trainingdataset from X_train.txt
+
+#### Test Data
+
+* subjTest: test data from subject_test.txt
+
+* actTest: activity data from y_test.txt
+
+* dataTest: actual testdataset from X_test.txt
+
+## Required steps
+
+The following steps are performed to meet the objective of summarizing the data by activity and subject: 
+
+1. Merge training and test sets to create one data set
+
+2. Extract only the measurements on the mean and standard deviation for each measurement. 
+
+3. Use descriptive activity names to name the activities in the data set
+
+4. Appropriately label the data set with descriptive activity names
+
+5. Create a second, independent tidy data set with the average of each variable for each activity and each subject
+
+#### 1. Merge training and test sets to create one data set
+
+Give column names to:
+
+* Tables about types of activities and calculations)
+
+* Training Data
+
+* Test Data
+
+Merge the columns from subjTrain, actTrain and dataTrain to create a dataset for the training data.
+Merge the columns from subjTest, actTest and dataTest to create a dataset for the test 
+Concatenate training and test data to create one data set.
+
+#### 2. Extract only the measurements on the mean and standard deviation for each measurement.
+
+Retrieve the right column names by using a charactervector containing all columnnames from oneDataSet. This charactervector is named: Column
+
+Search for the desired matches (mean and standard deviation) in Column. This will return TRUE. The rest of it will return FALSE.
+SetMeanSD is a subset of the matches from the ones that are TRUE.
+
+#### 3. Use descriptive activity names to name the activities in the data set 
+
+Join the subset SetMeanSD with tActivityLabels to retrieve the descriptive activity names.
+The result of this is completeData.
+
+#### 4. Appropriately label the data set with descriptive activity names
+
+Replace the variablenames in completeData with descriptive names by using gsub. Update the columns of completeData with these new names.
+
+#### 5. Create a second, independent tidy data set with the average of each variable for each activity and each subject 
+
+Aggregate only the calculation columns of completeData (3-20).
+Group by activityNumber and subjNumber (for 'each activity and each subject') and take the mean of each column.
+Only columns 3 till 20 from completeData were aggregated, so the variablenames from activityNumber and subjNumber disappeared. Since they were used to group by the calculation columns, the fields of activityNumber and subjNumber are visible, but these columnnames are gone. 
+I solved this by reassigning the appropriate names to the group by columns.
+I finally merged aggData with tActivityLabels to also get the names of the activities.
+

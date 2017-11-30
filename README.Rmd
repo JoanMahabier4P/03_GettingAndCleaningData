@@ -1,0 +1,38 @@
+---
+title: "README"
+output: html_document
+---
+
+## Project Goal
+
+The purpose of this project is to summarize a subset of sensor data by subject and physical activity. The data was obtained from sensors in smartphones. Those sensors measure a subject's position and direction. 30 subjects performed 6 activities, and there are 561 features (calculations) for each each subject-activity combination.
+
+
+## R script and preparations
+
+The R script made for this project is run_analysis.R. 
+
+A preliminary step preparations is to download the UCI HAR Dataset zipiles for the project. They can be obtained by clicking [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
+
+In order to process the data you will need to set the path of the working directory
+to the location where you have unzipped the UCI HAR Dataset. In other words: 
+in run_analysis.R adjust line 13 to YOUR location of the UCI HAR Dataset folder.
+
+
+## Required steps
+
+The R script run_analysis.R contains 5 steps which are necessary to meet the objective of summarizing the data by activity and subject. Each step result is input for the next step.
+
+The steps are as follows:
+
+1. Merge training and test sets to create one data set
+
+2. Extract only the measurements on the mean and standard deviation for each measurement. 
+
+3. Use descriptive activity names to name the activities in the data set
+
+4. Appropriately label the data set with descriptive activity names
+
+5. Create a second, independent tidy data set with the average of each variable for each activity and each subject
+
+Please refer to the CodeBook.md file for more information about these steps, the variables and transformations.
